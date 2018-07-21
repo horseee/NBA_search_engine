@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML>
+{%load static%}  
+<html>
+	<head>
+		<title>NBA</title>
+		<meta charset="utf-8" />
+		<meta name="_token" content="{{ csrf_token }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		 <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../static/assets/css/main.css" />
+		<link rel="stylesheet" href="../static/assets/css/search.css" />
+
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body>
+		<div class="main-href">&nbsp;&nbsp;<text>首页</text>&nbsp;&nbsp;</div>
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+					<header id="header">
+						<img src="/static/images/logo.png" class="nba-logo">
+						<div class="content">
+							<div class="dropdown">
+								<button class="btn dropdown-toggle" id="dropdownMenu1" 
+										data-toggle="dropdown">
+									<text>全部</text>
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+									<li role="presentation" class="dropdown-presentation">
+										<a role="menuitem" tabindex="-1" href="#"><text style="color: #fff">全部</text></a>
+									</li>
+									<li role="presentation" class="divider"></li>
+									<li role="presentation" class="dropdown-presentation">
+										<a role="menuitem" tabindex="-1" href="#"><text style="color: #fff">新闻</text></a>
+									</li>
+									<li role="presentation" class="dropdown-presentation">
+										<a role="menuitem" tabindex="-1" href="#"><text style="color: #fff">球队</text></a>
+									</li>
+									<li role="presentation" class="dropdown-presentation">
+										<a role="menuitem" tabindex="-1" href="#"><text style="color: #fff">球星</text></a>
+									</li>
+								</ul>
+							</div>
+							<input placeholder="请输入关键词" class="search-box" type="text"></input>
+							<span class="icon fa-search"></span>
+						</div>
+						<div class="search-keyword">
+						<text style="flex: 2; padding: 0.3rem"><strong style="color: rgb(150, 150, 150)">当前查询条件:&nbsp;&nbsp;&nbsp;&nbsp;</strong></text>
+							<div class="search-container">
+								
+							</div>
+						</div>
+					</header>
+
+					<div class = "loading-box">
+						<div class="loader loader--style8" title="7">
+						  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							 width="24px" height="30px" viewBox="0 0 32 40" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+							<rect x="0" y="10" width="8" height="50" fill="#333" opacity="0.2">
+							  <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+							  <animate attributeName="height" attributeType="XML" values="10; 50; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+							  <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+							</rect>
+							<rect x="12" y="10" width="8" height="50" fill="#333"  opacity="0.2">
+							  <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+							  <animate attributeName="height" attributeType="XML" values="10; 50; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+							  <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+							</rect>
+							<rect x="24" y="10" width="8" height="50" fill="#333"  opacity="0.2">
+							  <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+							  <animate attributeName="height" attributeType="XML" values="10; 50; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+							  <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+							</rect>
+						  </svg>
+						</div>
+						<text class="loading-text">搜索中</text>
+					</div>
+					
+				<!-- Main -->
+					<div id="main" style="margin-top: 3rem">
+
+						<div class="shader-box navigator-bar">
+							<h2 class="major" style="font-size: 1.2rem">筛选条件</h2>
+						</div>
+						<div class="shader-box result-box">
+							<h2 class="star-box-title">球星</h2>
+							<div class="star-box">
+							</div>
+							<div class="relative-star-box"></div>
+							<div class="star-divide-line"></div>
+							<h2 class="team-box-title">球队</h2>
+							<div class="team-box"></div>
+							<div class="relative-team-box"></div>
+							<div class="team-divide-line"></div>
+							<div class="news-box-title">
+								<h2 style="margin-bottom: 0">新闻</h2>
+								<div class="dropdown">
+								<button class="btn dropdown-toggle board" id="dropdownMenu2" 
+										data-toggle="dropdown">
+									<text>相关度</text>
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+									<li role="presentation" class="dropdown-presentation-order">
+										<a role="menuitem" tabindex="-1"><text style="color: #fff">相关度</text></a>
+									</li>
+									<li role="presentation" class="dropdown-presentation-order ">
+										<a role="menuitem" tabindex="-1"><text style="color: #fff">时间</text></a>
+									</li>
+								</ul>
+								</div>
+							</div>
+							<div class="news-box-title" id="news-total-count" style="font-size: 0.8rem; margin-bottom: 0.5rem; color:rgb(200, 200, 200)"></div>
+							<div class="news-box">
+								<div class="news-detail">
+
+								</div>
+								<div class="change-button-skip-box">
+									<div class="change-page-box"> 
+										
+									</div>
+									<div style="margin-left: 1rem; display: flex; flex-direction: row">
+										跳转到第<input class="input-page"></input>页&nbsp;&nbsp;
+										<div id = "total-page-button"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="link-ref">友情链接： 
+							<a href="http://sports.sohu.com">搜狐体育</a>&nbsp;&nbsp;
+							<a href="http://2018.sina.com.cn">新浪体育</a>&nbsp;&nbsp;
+							<a href="http://sports.163.com">网易体育</a>&nbsp;&nbsp;
+							<a href="https://nba.hupu.com">虎扑体育</a>&nbsp;&nbsp;
+						</p>
+						<p class="copyright">&copy; 项目实训小组：
+						<a href="https://github.com/horseee">horseee</a>&nbsp;&nbsp;
+						<a href="https://github.com/CCHD">CCHD</a>&nbsp;&nbsp;
+						<a href="https://github.com/LucienXian">LucienXian</a>&nbsp;&nbsp;
+						<a href="https://www.pixiv.net/member.php?id=20685369">方子健</a>
+						</p>
+					</footer>
+
+			</div>
+
+		<!-- BG -->
+			<div id="bg"></div>
+
+		<!-- Scripts -->
+			<script src="../static/assets/js/jquery.min.js"></script>
+			<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+			<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<script src="../static/assets/js/skel.min.js"></script>
+			<script src="../static/assets/js/swiper.min.js"></script>
+			<script src="../static/assets/js/util.js"></script>
+			<script src="{% static 'assets/js/search.js'%}"></script>
+			<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+	</body>
+</html>
