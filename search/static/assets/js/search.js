@@ -34,6 +34,8 @@ $(document).ready(function(){
 	var select_team = 0;
 	var search_type = 0;
 
+	var isSearching = false;
+
 
 	$(".dropdown-presentation").mouseenter(function(){
     		$(this).find('text').css('color','#000')	
@@ -98,7 +100,7 @@ $(document).ready(function(){
 
 
     $('.fa-search').click(function(){
-    		if ($('.search-box').val().length > 0 || search_type > 0) {
+    		if (($('.search-box').val().length > 0 || search_type > 0) && (!isSearching)) {
     			
 	    		$(this).css('background-color','rgba(255, 255, 255, 0.2)')	
 	    		$('#header > div.content').animate({'margin-top':'8rem'});
@@ -218,6 +220,7 @@ $(document).ready(function(){
 
 				var csrf_token = Cookies.get('csrftoken');
 				$('.loading-box').show();
+				isSearching = true;
 				$.ajax({
 					type: "POST",
 					url: "http://127.0.0.1:8000/search/index",
@@ -339,6 +342,7 @@ $(document).ready(function(){
 						})
 
 						search_type = 0;
+						isSearching = false;
 					}
 	            });
 			
