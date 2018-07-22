@@ -212,7 +212,7 @@ $(document).ready(function(){
 				console.log("search word: " + search_word);
 				console.log("search label: " + search_label);
 				console.log("search source: " + search_source);
-				console.log("search recent: " + search_recent);
+				console.log("search recent: " + recent_res);
 				console.log("search star: " + search_star);
 				console.log("search team: " + search_team);
 
@@ -257,12 +257,14 @@ $(document).ready(function(){
 								star_info_data_array = data.result.player_data_list;
 								if (star_info_array.length > 0)
 									putStar(true);
+								
 							}
 							if ("team_list" in data.result){
 								team_info_array = data.result.team_list;
 								team_info_data_array = data.result.team_data_list;
 								if (team_info_array.length > 0)
 									putTeam(true);
+								
 							}
 							putNews();
 							if (search_type != 1) {
@@ -289,7 +291,13 @@ $(document).ready(function(){
 						} else if (search_tab == '球队') {
 							team_info_array = data.result.team_list;
 							team_info_data_array = data.result.team_data_list;
-							putTeam(false);
+							if (team_info_array.length > 0) {
+								putTeam(false);
+							} else {
+								$('.team-box-title').show();
+								$('.team-box').append('<text style="font-size: 0.8rem; color:rgb(200, 200, 200);">没有找到相关球队</text>');
+							}
+							
 							teamnameList = new Array();
 							if (team_info_array.length > 0) {
 								for (var i=0; i<team_info_array.length; i++)
@@ -301,7 +309,12 @@ $(document).ready(function(){
 						} else if (search_tab == '球星') {
 							star_info_array = data.result.player_list;
 							star_info_data_array = data.result.player_data_list;
-							putStar(false);
+							if (star_info_array.length > 0) {
+								putStar(false);
+							} else {
+								$('.star-box-title').show();
+								$('.star-box').append('<text style="font-size: 0.8rem; color:rgb(200, 200, 200);">没有找到相关球星</text>');
+							}
 							starnameList = new Array();
 							if (star_info_array.length > 0) {
 								for (var i=0; i<star_info_array.length; i++)
@@ -858,7 +871,8 @@ $(document).ready(function(){
     	star_str = star_str + '<div class="info-one-line">中文姓名：<text>' + StarInfo['中文名']+ '</text></div>'
     	star_str = star_str + '<div class="info-one-line">英文姓名：<text>' + StarInfo['name'] + '</text></div>'
     	star_str = star_str + '<div class="info-one-line">球队：<text>' + star_info_data_array[0][0]['_source']['team'] + '</text></div>'
-    	star_str = star_str + '<div class="info-one-line">身高体重：<text>' + StarInfo['身高'] + ' / ' + StarInfo['体重'] + '</text></div>'
+    	star_str = star_str + '<div class="info-one-line">身高：<text>' + StarInfo['身高'] + '</text></div>'
+    	star_str = star_str + '<div class="info-one-line">体重：<text>' + StarInfo['体重'] + '</text></div>'
     	star_str = star_str + '<div class="info-one-line">出生情况：<text>' + StarInfo['出生年月'] + '</text></div>'
     	star_str = star_str + '<div class="info-one-line">位置：<text>' + StarInfo['位置'] + '</text></div>'
     	//star_str = star_str + '<div class="info-one-line">薪水：<text>' + StarInfo['salary'] + '</text></div>'
