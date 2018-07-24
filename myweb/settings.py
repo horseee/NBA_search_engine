@@ -76,12 +76,6 @@ WSGI_APPLICATION = 'myweb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'csvt',
-        'USER':'root',
-        'PASSWORD':'Niconiconi',
-        'HOST':'',
-        'PORT':'',
     }
 }
 

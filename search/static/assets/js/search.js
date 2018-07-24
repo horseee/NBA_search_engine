@@ -100,7 +100,8 @@ $(document).ready(function(){
 
 
     $('.fa-search').click(function(){
-    		if (($('.search-box').val().length > 0 || search_type > 0) && (!isSearching)) {
+    		var search_origin_word = $('.search-box').val();
+    		if ((  ($('.search-box').val().length > 0 && $.trim(search_origin_word) != '')  || search_type > 0) && (!isSearching) ) {
     			
 	    		$(this).css('background-color','rgba(255, 255, 255, 0.2)')	
 	    		$('#header > div.content').animate({'margin-top':'8rem'});
@@ -149,7 +150,7 @@ $(document).ready(function(){
 					AddKeyword(search_tab, search_keyword_num, true);
 					search_word_array.push(['tab', search_tab]);
 
-					search_word = $('.search-box').val();
+					search_word = $.trim(search_origin_word);
 					search_keyword_num = search_keyword_num + 1;
 					AddKeyword(search_word, search_keyword_num, true);
 					search_word_array.push(['key', search_word]);
@@ -574,8 +575,10 @@ $(document).ready(function(){
 
 
 	$(".input-page").keydown(function(event) {
+			event.preventDefault();
+			event.stopPropagation();
     		var input_key_origin_value = $(this).val();
-    		event.preventDefault();
+    		
     		if (event.which >= 48 &&  event.which <= 57) {
     				if (parseInt(input_key_origin_value + event.key) <= last_page)
     				//if (input_key_origin_value.length < Max_length)
@@ -586,13 +589,12 @@ $(document).ready(function(){
 		        		$('.input-page').val(input_key_origin_value)
 		        	} else if (event.which == 13) {
 		        		var next_page = parseInt(input_key_origin_value);
-		        		if (next_page > last_page || next_page == 0) {
-
-		        		} else {
+		        		if (next_page <= last_page && next_page > 0) {
 		        			changePageButton(next_page);
 		        			$(this).val('');
 		        		}	
 		    }
+
     })
 
 
